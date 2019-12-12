@@ -1,18 +1,27 @@
 close all;
 
-path = 'C:\Users\alexj\Documents\sorghum_data\9_1';
+path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
-folder_contents = dir(path);
+im_height = 424;
+im_width = 512;
+im_no = 12;
 
-for i = 1:numel(folder_contents)
-    item = folder_contents(i);
+depth_ims = get_depth_ims(path, im_height, im_width, im_no);
+
+for i = 1:im_no
+    depth_im = uint16(depth_ims(:, :, i));
+
+%     figure;
+%     imshow(mat2gray(depth_im));
     
-    if ~item.isdir && contains(item.name, 'DepthImage')
-        file_path = fullfile(path, item.name);
-        depth_im = imread(file_path);
-        depth_im = mat2gray(depth_im);
-        
-        figure;
-        imshow(depth_im);
-    end
+    segmented_im = segment_depth_im(depth_im);
+    
+    figure;
+    imshow(mat2gray(segmented_im));
+    
+%     break
+    
+%     filename = sprintf('initial_segmentation%d.jpg', i);    
+%     save_path = fullfile(path, 'Initial Segmentations', filename);
+%     imwrite(segmented_im, save_path, 'BitDepth', 16);
 end
