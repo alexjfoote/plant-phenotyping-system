@@ -7,7 +7,6 @@ function pc = depthImage2PC(file_path)
     min_x = -300;
     min_y = -250;
     max_y = 350;   
-%     max_y = 650;    
     
     depth_im = imread(file_path);
 

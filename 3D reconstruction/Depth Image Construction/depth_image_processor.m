@@ -1,6 +1,6 @@
 % close all
 
-path = 'C:\Users\alexj\Documents\sorghum_data\4_3';
+path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
 folder_contents = dir(path);
 
@@ -26,29 +26,19 @@ for i = 1:numel(folder_contents)
         continue
     end
     
-    if mod(pc_count, 1) == 0
-        merge = true;
-    else
-        merge = false;
-    end
-    
     if ~is_first_plant
         fprintf('Registering point cloud %d\n', pc_count + 1);
         if is_first_scene
-            [pc_scene, tform_total, aligned_pc, rmse, rmse2] = registerPCs(0, pc_base, pc_new, 0, is_first_scene, merge, first_pc);
+            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(0, pc_base, pc_new, 0, is_first_scene);
         else
-            [pc_scene, tform_total, aligned_pc, rmse, rmse2] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene, merge, first_pc);
+            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene);
         end
         is_first_scene = false;
         
         rmse
-        rmse2;
         
 %         figure;
 %         pcshow(pc_scene);
-    else
-%         aligned_pc = pc_new;    
-        first_pc = pc_new;
     end
     
 %     filename = sprintf('pointCloudAligned%d.ply', pc_count);        
