@@ -1,15 +1,6 @@
-function pc = depthImage2PC(file_path)
+function pc = depthImage2PC(depth_im)
     pixel_to_mm_scale_factor = 1.4089;
     base_distance = 500;
-    
-    max_z = 1200;
-    max_x = 300;
-    min_x = -300;
-    min_y = -250;
-    max_y = 350;   
-%     max_y = 650;    
-    
-    depth_im = imread(file_path);
 
     im_dimensions = size(depth_im);
 
@@ -25,11 +16,9 @@ function pc = depthImage2PC(file_path)
             normalised_z = z/base_distance;
                            
             x = (j - width/2) * pixel_to_mm_scale_factor * normalised_z;
-            y = (i - height/2) * pixel_to_mm_scale_factor * normalised_z;     
+            y = (i - height/2) * pixel_to_mm_scale_factor * normalised_z;
             
-            if z < max_z && x > min_x && x < max_x && y < max_y && y > min_y
-                points(((i - 1) * width) + j, :) = [x, y, z];
-            end
+            points(((i - 1) * width) + j, :) = [x, y, z];
         end
     end
     

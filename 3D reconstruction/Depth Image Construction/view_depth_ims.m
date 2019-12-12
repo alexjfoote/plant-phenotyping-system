@@ -19,7 +19,7 @@ for i = 1:im_no
     figure;
     imshow(mat2gray(segmented_im));
     
-%     break
+    break
     
 %     filename = sprintf('initial_segmentation%d.jpg', i);    
 %     save_path = fullfile(path, 'Initial Segmentations', filename);
