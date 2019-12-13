@@ -1,14 +1,14 @@
 function [plant_pc, pot_pc] = remove_pot(pc)
-    maxDistance = 30;
+    max_distance = 30;
     
     roi = [-250, 250; 100, 400; -inf, inf];
-    sampleIndices = findPointsInROI(pc, roi);
+    sample_indices = findPointsInROI(pc, roi);
     
-    [plane_model, inlierIndices, outlierIndices] = pcfitplane(pc, ...
-            maxDistance, 'SampleIndices', sampleIndices);
+    [plane_model, inlier_indices, outlier_indices] = pcfitplane(pc, ...
+            max_distance, 'SampleIndices', sample_indices);
         
-    pot_plane = select(pc, inlierIndices);
-    remain_pc = select(pc, outlierIndices);
+    pot_plane = select(pc, inlier_indices);
+    remain_pc = select(pc, outlier_indices);
     
     z_coord = -plane_model.Parameters(4)/plane_model.Parameters(3);
     

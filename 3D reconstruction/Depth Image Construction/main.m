@@ -21,44 +21,54 @@ for i = 1:im_no
                 
     pc_count = pc_count + 1;
     fprintf('Constructing point cloud from depth image %d\n', pc_count + 1);
-    pc_new = depthImage2PC(segmented_im);
-
-    figure;
-    pcshow(pc_new, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+    pc = depthImage2PC(segmented_im);
     
-    [plant_pc, pot_pc] = remove_pot(pc_new);
+    [plant_pc, pot_pc] = remove_pot(pc);
+    
+%     if i == 1
+%         figure;
+%         title('Original point cloud');
+%         pcshow(pc, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+% 
+%         figure;
+%         title('Plant point cloud');
+%         pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+% 
+%         figure;
+%         title('Pot point cloud');
+%         pcshow(pot_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+%     end
+%     
+%     break
     
     figure;
     pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+    pc_new = plant_pc;
     
-    figure;
-    pcshow(pot_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
-    break
+    if ~is_first_plant
+        fprintf('Registering point cloud %d\n', pc_count + 1);
+        if is_first_scene
+            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(0, pc_base, pc_new, 0, is_first_scene);
+        else
+            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene);
+        end
+        is_first_scene = false;
+        
+        rmse
+        
+%         figure;
+%         pcshow(pc_scene);
+    end
     
-%     if ~is_first_plant
-%         fprintf('Registering point cloud %d\n', pc_count + 1);
-%         if is_first_scene
-%             [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(0, pc_base, pc_new, 0, is_first_scene);
-%         else
-%             [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene);
-%         end
-%         is_first_scene = false;
-%         
-%         rmse
-%         
-% %         figure;
-% %         pcshow(pc_scene);
-%     end
-%     
-%     is_first_plant = false;
-% 
-%     pc_base = pc_new;
+    is_first_plant = false;
+
+    pc_base = pc_new;
 end
 toc
 
 % figure;
 % pcshow(pc_scene);
-% 
-% denoised = pcdenoise(pc_scene);
-% figure;
-% pcshow(denoised);
+
+denoised = pcdenoise(pc_scene);
+figure;
+pcshow(denoised);
