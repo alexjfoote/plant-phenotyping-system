@@ -1,6 +1,6 @@
-function [pc_registered, tform_total, pc_rigid_aligned, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene)
-    gridSize = 6;    
-    rmse_cutoff = 18;
+function [pc_registered, tform_total, pc_aligned, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene)
+    gridSize = 1;    
+    rmse_cutoff = 10.5;
     
     moving = pcdownsample(pc_new, 'gridAverage', gridSize);
     
@@ -21,11 +21,9 @@ function [pc_registered, tform_total, pc_rigid_aligned, rmse] = registerPCs(pc_s
         tform_total = affine3d(tform.T * tform_total.T);  
     end
     
-    pc_rigid_aligned = pctransform(moving_transform, tform);
+    pc_aligned = pctransform(moving_transform, tform);
     
-    pc_aligned = pc_rigid_aligned;
-    
-    merge_size = 5;
+    merge_size = 1;
     
     if rmse < rmse_cutoff
         pc_registered = pcmerge(pc_scene, pc_aligned, merge_size);
