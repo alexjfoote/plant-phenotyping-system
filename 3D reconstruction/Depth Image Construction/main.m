@@ -1,10 +1,10 @@
 close all
 
-path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
+path = 'C:\Users\alexj\Documents\sorghum_data\4_2';
 
 im_height = 424;
 im_width = 512;
-im_no = 12;
+im_no = 11;
 
 depth_ims = get_depth_ims(path, im_height, im_width, im_no);
 
