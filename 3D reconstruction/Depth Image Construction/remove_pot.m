@@ -1,7 +1,7 @@
 function [plant_pc, pot_pc] = remove_pot(pc)
     max_distance = 30;
     
-    roi = [-250, 250; 100, 400; -inf, inf];
+    roi = [-250, 250; 100, 300; -inf, inf];
     sample_indices = findPointsInROI(pc, roi);
     
     [plane_model, inlier_indices, outlier_indices] = pcfitplane(pc, ...

@@ -1,6 +1,6 @@
 close all
 
-path = 'C:\Users\alexj\Documents\sorghum_data\4_2';
+path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
 im_height = 424;
 im_width = 512;
@@ -41,23 +41,23 @@ for i = 1:im_no
 %     
 %     break
     
-    figure;
-    pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+%     figure;
+%     pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+
     pc_new = plant_pc;
     
     if ~is_first_plant
         fprintf('Registering point cloud %d\n', pc_count + 1);
         if is_first_scene
-            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(0, pc_base, pc_new, 0, is_first_scene);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_base, pc_new, 0, 0, is_first_scene, i);
         else
-            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_new, tform_prev, tform_total, is_first_scene, i);
         end
-        is_first_scene = false;
         
         rmse
         
-%         figure;
-%         pcshow(pc_scene);
+        figure;
+        pcshow(pc_scene);
     end
     
     is_first_plant = false;
@@ -66,8 +66,8 @@ for i = 1:im_no
 end
 toc
 
-% figure;
-% pcshow(pc_scene);
+figure;
+pcshow(pc_scene);
 
 denoised = pcdenoise(pc_scene);
 figure;

@@ -24,5 +24,5 @@ function pc = depthImage2PC(depth_im)
     
     pc = pointCloud(points);
     
-    pc = pcdenoise(pc);
+%     pc = pcdenoise(pc);
 end
