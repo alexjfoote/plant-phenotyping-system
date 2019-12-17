@@ -1,4 +1,4 @@
-close all
+% close all
 
 path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
@@ -49,15 +49,17 @@ for i = 1:im_no
     if ~is_first_plant
         fprintf('Registering point cloud %d\n', pc_count + 1);
         if is_first_scene
-            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_base, pc_new, 0, 0, is_first_scene, i);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_first, 0, pc_base, pc_new, 0, 0, is_first_scene);
         else
-            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_new, tform_prev, tform_total, is_first_scene, i);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_first, pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene);
         end
         
         rmse
         
-        figure;
-        pcshow(pc_scene);
+%         figure;
+%         pcshow(pc_scene);
+    else
+        pc_first = pc_new;
     end
     
     is_first_plant = false;
@@ -66,9 +68,12 @@ for i = 1:im_no
 end
 toc
 
-figure;
-pcshow(pc_scene);
+% figure;
+% pcshow(pc_scene);
 
-denoised = pcdenoise(pc_scene);
+pc_scene = pcdownsample(pc_scene, 'gridAverage', 1);
+tic
+denoised = pcdenoise(pc_scene, 'NumNeighbors', 50, 'Threshold', 0.001);
+toc
 figure;
 pcshow(denoised);
