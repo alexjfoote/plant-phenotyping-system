@@ -1,4 +1,4 @@
-function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_first, pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene)
+function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene)
     grid_size = 1;    
     rmse_cutoff = 15;
     
@@ -28,16 +28,13 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         
         pc_aligned = pctransform(moving, tform_total);  
         
-        moving = pcdownsample(pc_aligned, 'gridAverage', grid_size);    
-%         fixed = pcdownsample(pc_first, 'gridAverage', gridSize); 
+        moving = pcdownsample(pc_aligned, 'gridAverage', grid_size);  
         fixed = pcdownsample(pc_scene, 'gridAverage', grid_size); 
 
         tform_tidy = pcregistericp(moving, fixed, 'Extrapolate', true);
 
         pc_registered = pctransform(pc_aligned, tform_tidy);
         pc_registered = pcmerge(pc_scene, pc_registered, grid_size);
-        
-%         tform_total = affine3d(tform_tidy.T * tform_total.T); 
 
     else
         tform_total = affine3d(tform_prev.T * tform_total.T);         

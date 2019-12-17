@@ -51,17 +51,15 @@ for i = 1:im_no
     if ~is_first_plant
         fprintf('Registering point cloud %d\n', pc_count + 1);
         if is_first_scene
-            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_first, 0, pc_base, pc_new, 0, 0, is_first_scene);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(0, pc_base, pc_new, 0, 0, is_first_scene);
         else
-            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_first, pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene);
         end
         
         rmse
         
 %         figure;
 %         pcshow(pc_scene);
-    else
-        pc_first = pc_new;
     end
     
     is_first_plant = false;
