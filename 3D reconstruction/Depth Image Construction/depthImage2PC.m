@@ -24,5 +24,8 @@ function pc = depthImage2PC(depth_im)
     
     pc = pointCloud(points);
     
-    pc = pcdenoise(pc);
+    pc = pcdownsample(pc, 'gridAverage', 1);
+    
+%     pc = pcdenoise(pc);
+    pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.01);
 end

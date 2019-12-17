@@ -1,10 +1,10 @@
-close all
+% close all
 
 path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
 im_height = 424;
 im_width = 512;
-im_no = 12;
+im_no = 11;
 
 depth_ims = get_depth_ims(path, im_height, im_width, im_no);
 
@@ -41,18 +41,20 @@ for i = 1:im_no
 %     
 %     break
     
-    figure;
-    pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+%     figure;
+%     pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+%     
+%     break
+
     pc_new = plant_pc;
     
     if ~is_first_plant
         fprintf('Registering point cloud %d\n', pc_count + 1);
         if is_first_scene
-            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(0, pc_base, pc_new, 0, is_first_scene);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(0, pc_base, pc_new, 0, 0, is_first_scene);
         else
-            [pc_scene, tform_total, aligned_pc, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_total, is_first_scene);
+            [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene);
         end
-        is_first_scene = false;
         
         rmse
         
@@ -69,6 +71,9 @@ toc
 % figure;
 % pcshow(pc_scene);
 
-denoised = pcdenoise(pc_scene);
+pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
+tic
+denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
+toc
 figure;
 pcshow(denoised);
