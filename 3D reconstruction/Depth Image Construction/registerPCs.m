@@ -10,9 +10,10 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         moving_transform = pctransform(moving, tform_total); 
     end    
     
-    fixed = pcdownsample(pc_scene, 'gridAverage', grid_size);    
+    fixed = pcdownsample(pc_scene, 'gridAverage', grid_size);  
+    
     [tform, ~, rmse] = pcregistericp(moving_transform, fixed, ...
-        'Extrapolate', true);
+        'Extrapolate', true, 'Metric', 'pointToPlane');
     
     if rmse < rmse_cutoff 
         pc_aligned = pctransform(moving_transform, tform);  
