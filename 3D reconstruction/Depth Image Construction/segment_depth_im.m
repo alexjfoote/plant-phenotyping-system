@@ -6,7 +6,7 @@ function segmented_im = segment_depth_im(depth_im)
     above_z_min = 0;
     above_z_diff = 1400;
     below_z_min = 0;
-    below_z_diff = 1100;
+    below_z_diff = 1150;
     
     pot_top = 320;
     
