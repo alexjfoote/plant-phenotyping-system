@@ -43,6 +43,8 @@ for i = 1:im_no
     
 %     figure;
 %     pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+%     
+%     break
 
     pc_new = plant_pc;
     
@@ -71,9 +73,9 @@ toc
 % figure;
 % pcshow(pc_scene);
 
-pc_scene = pcdownsample(pc_scene, 'gridAverage', 1);
+pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
 tic
-denoised = pcdenoise(pc_scene, 'NumNeighbors', 50, 'Threshold', 0.001);
+denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
 toc
 figure;
 pcshow(denoised);

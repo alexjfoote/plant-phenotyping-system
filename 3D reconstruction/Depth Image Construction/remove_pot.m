@@ -3,7 +3,7 @@ function [plant_pc, pot_pc] = remove_pot(pc)
     
     reference_vector = [0, 1, 0];
     
-    max_angle = 45;
+    max_angle = 30;
     
     roi = [-250, 250; 100, 300; -inf, inf];
     sample_indices = findPointsInROI(pc, roi);
