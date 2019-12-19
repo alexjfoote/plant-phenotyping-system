@@ -1,5 +1,7 @@
 % close all
 
+save = false;
+
 path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
 im_height = 424;
@@ -73,7 +75,18 @@ toc
 
 pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
 tic
-denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
+pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
+% pc_denoised = pc_scene;
 toc
 figure;
-pcshow(denoised);
+pcshow(pc_denoised, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+
+if save
+    pc_shifted = shift_reference(pc_denoised.Location);
+    
+    figure;
+    pcshow(pc_shifted);
+    
+    pc_filename = fullfile(path, 'pointCloud.ply');
+    pcwrite(pc_shifted, pc_filename);
+end
