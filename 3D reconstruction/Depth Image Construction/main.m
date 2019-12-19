@@ -40,13 +40,6 @@ for i = 1:im_no
 %         title('Pot point cloud');
 %         pcshow(pot_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
 %     end
-%     
-%     break
-    
-%     figure;
-%     pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
-%     
-%     break
 
     pc_new = plant_pc;
     
@@ -70,13 +63,9 @@ for i = 1:im_no
 end
 toc
 
-% figure;
-% pcshow(pc_scene);
-
 pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
 tic
 pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
-% pc_denoised = pc_scene;
 toc
 figure;
 pcshow(pc_denoised, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
