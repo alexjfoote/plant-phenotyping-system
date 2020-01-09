@@ -1,22 +1,13 @@
 function segmented_im = segment_depth_im(depth_im)
-    x_min = 40;
-    x_max = 400;
-    y_min = 100;
+    x_left = 50;
+    x_right = 50;
+    y_top = 100;
+    y_bottom = 0;
     
-    above_z_min = 0;
-    above_z_diff = 1400;
-    below_z_min = 0;
-    below_z_diff = 1150;
+    min_threshold = 0;
+    max_threshold = 1150;
     
-    pot_top = 320;
-    
-    above_segment = depth_im(y_min:pot_top, x_min:x_max);
-    below_segment = depth_im(pot_top + 1:end, x_min:x_max);
-    
-    above_segment(above_segment < above_z_min | ...
-        above_segment > above_z_min + above_z_diff) = 0;
-    below_segment(below_segment < below_z_min | ...
-        below_segment > below_z_min + below_z_diff) = 0;
-    
-    segmented_im = [above_segment; below_segment];
+    segmented_im = depth_im(y_top:end - y_bottom, x_right:end - x_left);
+    segmented_im(segmented_im > max_threshold | ...
+        segmented_im < min_threshold) = 0;
 end

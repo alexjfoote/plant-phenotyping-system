@@ -1,4 +1,4 @@
-close all
+% close all
 
 save = false;
 
@@ -65,7 +65,7 @@ toc
 
 pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
 tic
-pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
+pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 1.2);
 toc
 figure;
 pcshow(pc_denoised, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
