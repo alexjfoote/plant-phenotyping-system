@@ -2,7 +2,7 @@ close all
 
 save = false;
 
-path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
+path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
 
 im_height = 424;
 im_width = 512;
@@ -13,7 +13,7 @@ depth_ims = get_depth_ims(path, im_height, im_width, im_no);
 is_first_plant = true;
 is_first_scene = true;
 
-pc_count = -1;
+pc_count = 0;
 
 tic
 for i = 1:im_no
@@ -22,39 +22,20 @@ for i = 1:im_no
     segmented_im = segment_depth_im(depth_im);
                 
     pc_count = pc_count + 1;
-    fprintf('Constructing point cloud from depth image %d\n', pc_count + 1);
+    fprintf('Constructing point cloud from depth image %d\n', pc_count);
     pc = depthImage2PC(segmented_im);
     
     [plant_pc, pot_pc] = remove_pot(pc);
-    
-%     if i == 1
-%         figure;
-%         title('Original point cloud');
-%         pcshow(pc, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
-% 
-%         figure;
-%         title('Plant point cloud');
-%         pcshow(plant_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
-% 
-%         figure;
-%         title('Pot point cloud');
-%         pcshow(pot_pc,  'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
-%     end
 
     pc_new = plant_pc;
     
     if ~is_first_plant
-        fprintf('Registering point cloud %d\n', pc_count + 1);
+        fprintf('Registering point cloud %d\n', pc_count);
         if is_first_scene
             [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(0, pc_base, pc_new, 0, 0, is_first_scene);
         else
             [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene);
         end
-        
-        rmse
-        
-%         figure;
-%         pcshow(pc_scene);
     end
     
     is_first_plant = false;
@@ -64,9 +45,9 @@ end
 toc
 
 pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
-tic
-pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 5);
-toc
+disp('Removing noise')
+pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 1.5);
+
 figure;
 pcshow(pc_denoised, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
 
