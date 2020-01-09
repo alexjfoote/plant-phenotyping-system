@@ -21,4 +21,4 @@ plant models will be investigated.
 ![Point cloud without pot](https://github.com/alexjfoote/plant-phenotyping-system/blob/master/Demo%20images/pc_pot_removed.jpg)
 
 5. Register all point clouds to the same frame
-![Registered Point Cloud](https://github.com/alexjfoote/plant-phenotyping-system/blob/master/Demo%20images/registered_pc.jpg)
+![Registered Point Cloud](https://github.com/alexjfoote/plant-phenotyping-system/blob/master/Demo%20images/registered_pc.png)
