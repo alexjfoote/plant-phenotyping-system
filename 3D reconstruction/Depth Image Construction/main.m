@@ -8,7 +8,12 @@ im_height = 424;
 im_width = 512;
 im_no = 11;
 
-depth_ims = get_depth_ims(path, im_height, im_width, im_no);
+% Axis about which the plant is upright in the depth images (x or y)
+plant_axis = 'y';
+
+background_distance = 3000;
+
+depth_ims = get_depth_ims(path, im_height, im_width, im_no, plant_axis);
 
 is_first_plant = true;
 is_first_scene = true;
@@ -19,7 +24,9 @@ tic
 for i = 1:im_no
     depth_im = uint16(depth_ims(:, :, i));
     
-    segmented_im = segment_depth_im(depth_im);
+    plant_point = find_plant(depth_im, background_distance);
+    
+    segmented_im = segment_depth_im(depth_im, plant_point);
                 
     pc_count = pc_count + 1;
     fprintf('Constructing point cloud from depth image %d\n', pc_count);

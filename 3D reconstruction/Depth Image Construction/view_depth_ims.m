@@ -1,6 +1,6 @@
 close all;
 
-path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
+path = 'C:\Users\alexj\Documents\sorghum_data\4_1_older';
 
 im_height = 424;
 im_width = 512;
@@ -10,14 +10,13 @@ depth_ims = get_depth_ims(path, im_height, im_width, im_no);
 
 for i = 1:im_no
     depth_im = uint16(depth_ims(:, :, i));
-
-    figure;
-    imshow(mat2gray(depth_im));
     
-    segmented_im = segment_depth_im(depth_im);
-%     
-%     figure;
-%     imshow(mat2gray(segmented_im));
+    mode_z = find_plant(depth_im, 3000);
+    
+    segmented_im = segment_depth_im(depth_im, mode_z);
+    
+    figure;
+    imshow(mat2gray(segmented_im));
     
 %     break
     
