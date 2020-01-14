@@ -2,7 +2,8 @@ close all
 
 save = false;
 
-path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
+% path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
+path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
 
 im_height = 424;
 im_width = 512;
@@ -32,9 +33,11 @@ for i = 1:im_no
     fprintf('Constructing point cloud from depth image %d\n', pc_count);
     pc = depthImage2PC(segmented_im);
     
+    pc = remove_floor(pc);
+    
     [plant_pc, pot_pc] = remove_pot(pc);
 
-    pc_new = plant_pc;
+    pc_new = pcdenoise(plant_pc, 'NumNeighbors', 20, 'Threshold', 0.01);
     
     if ~is_first_plant
         fprintf('Registering point cloud %d\n', pc_count);
@@ -43,6 +46,8 @@ for i = 1:im_no
         else
             [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene);
         end
+        
+        rmse
     end
     
     is_first_plant = false;
@@ -53,10 +58,12 @@ toc
 
 pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
 disp('Removing noise')
-pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 100, 'Threshold', 1.5);
+pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 20, 'Threshold', 1);
 
 figure;
-pcshow(pc_denoised, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+pcshow(pc_scene)
+figure;
+pcshow(pc_denoised);
 
 if save
     pc_shifted = shift_reference(pc_denoised.Location);

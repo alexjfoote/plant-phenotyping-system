@@ -18,7 +18,7 @@ function pc = depthImage2PC(depth_im)
             x = (j - width/2) * pixel_to_mm_scale_factor * normalised_z;
             y = (i - height/2) * pixel_to_mm_scale_factor * normalised_z;
             
-            points(((i - 1) * width) + j, :) = [x, y, z];
+            points(((i - 1) * width) + j, :) = [x, -z, -y];
         end
     end
     
@@ -27,5 +27,5 @@ function pc = depthImage2PC(depth_im)
     pc = pcdownsample(pc, 'gridAverage', 1);
     
 %     pc = pcdenoise(pc);
-    pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.01);
+%     pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.01);
 end

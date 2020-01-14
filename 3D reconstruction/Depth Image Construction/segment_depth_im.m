@@ -1,6 +1,6 @@
 function segmented_im = segment_depth_im(depth_im, plant_point)
-    x_left = 50;    
-    x_right = 50;    
+    x_left = 70;    
+    x_right = 70;    
     y_top = 1;
     y_bottom = 1;
     

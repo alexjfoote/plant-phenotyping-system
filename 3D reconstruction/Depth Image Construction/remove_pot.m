@@ -1,7 +1,7 @@
 function [plant_pc, pot_pc] = remove_pot(pc)
     max_distance = 35;
     
-    reference_vector = [0, 1, 0];
+    reference_vector = [0, 0, 1];
     
     max_angle = 30;
     
