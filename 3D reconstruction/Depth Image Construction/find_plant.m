@@ -1,8 +1,12 @@
-function mode_z = find_plant(depth_im)
-    width = size(depth_im, 2);    
-    centre = width/2;
+function mode_z = find_plant(depth_im, background_distance)
+    [height, width] = size(depth_im);    
+    width_centre = width/2;
+    height_centre = height/2;
     
-    centre_strip = depth_im(:, centre - 50:centre + 50);
+    centre_strip = depth_im(height_centre - 100:height_centre + 100, ...
+        width_centre - 100:width_centre + 100);
+    
+    centre_strip(centre_strip > background_distance) = 0;
     
     [z_counts, edges] = histcounts(centre_strip, 100);
     z_counts = z_counts(2:end);
