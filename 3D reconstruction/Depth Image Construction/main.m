@@ -3,7 +3,7 @@ close all
 save = false;
 
 % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
-path = 'C:\Users\alexj\Documents\sorghum_data\4_1';
+path = 'C:\Users\alexj\Documents\sorghum_data\15-08-03\4_1';
 
 im_height = 424;
 im_width = 512;
@@ -23,6 +23,8 @@ pc_count = 0;
 
 tic
 for i = 1:im_no
+%     break
+    
     depth_im = uint16(depth_ims(:, :, i));
     
     plant_point = find_plant(depth_im, background_distance);
@@ -33,9 +35,9 @@ for i = 1:im_no
     fprintf('Constructing point cloud from depth image %d\n', pc_count);
     pc = depthImage2PC(segmented_im);
     
-    pc = remove_floor(pc);
+    [pc_no_floor, pc_floor] = remove_floor(pc);
     
-    [plant_pc, pot_pc] = remove_pot(pc);
+    [plant_pc, pot_pc] = remove_pot(pc_no_floor);
 
     pc_new = pcdenoise(plant_pc, 'NumNeighbors', 20, 'Threshold', 0.01);
     
@@ -66,7 +68,7 @@ figure;
 pcshow(pc_denoised);
 
 if save
-    pc_shifted = shift_reference(pc_denoised.Location);
+    pc_shifted = shift_reference(pc_denoised.Location, pc_floor);
     
     figure;
     pcshow(pc_shifted);

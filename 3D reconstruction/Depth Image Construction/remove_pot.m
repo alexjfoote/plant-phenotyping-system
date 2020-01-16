@@ -5,12 +5,8 @@ function [plant_pc, pot_pc] = remove_pot(pc)
     
     max_angle = 30;
     
-    roi = [-inf, inf; -inf, inf; -inf, inf];
-    sample_indices = findPointsInROI(pc, roi);
-    
     [plane_model, inlier_indices, outlier_indices] = pcfitplane(pc, ...
-            max_distance, reference_vector, max_angle, ...
-            'SampleIndices', sample_indices);
+            max_distance, reference_vector, max_angle);
         
     pot_plane = select(pc, inlier_indices);
     remain_pc = select(pc, outlier_indices);
