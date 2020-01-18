@@ -28,8 +28,8 @@ function LAI = get_LAI(X, Y)
     processed = bwmorph(vert_projection, 'close');
     processed = imfill(processed, 'holes');
     
-    figure;
-    imshow(processed);
+%     figure;
+%     imshow(processed);
     
     dims = size(processed);
     

@@ -22,7 +22,10 @@ function pc = shift_reference(pc_locations, pc_floor)
     
     pc_plane = pointCloud(plane);
     
-    [~, ~, tform_total, ~, ~] = registerPCs(0, pc_plane, pc_floor_shifted, 0, 0, true);
+    figure;
+    pcshow(pc_floor_shifted);
     
+    [~, ~, tform_total, ~, ~] = registerPCs(0, pc_plane, pc_floor_shifted, 0, 0, true);
+    tform_total
     pc = pctransform(pc_shifted, tform_total); 
 end
