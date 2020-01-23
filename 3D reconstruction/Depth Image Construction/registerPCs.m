@@ -1,11 +1,16 @@
-function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene)
+function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene, rmse_cutoff)
     grid_size = 1;    
-    rmse_cutoff = 15;
     
     moving = pcdownsample(pc_new, 'gridAverage', grid_size);    
     fixed = pcdownsample(pc_base, 'gridAverage', grid_size);  
     
     [tform, ~, rmse] = pcregistericp(moving, fixed, 'Extrapolate', true);
+    
+%     pc_test = pctransform(moving, tform);      
+%     pc_test = pcmerge(fixed, pc_test, grid_size);
+%     
+%     figure;
+%     pcshow(pc_test);
     
     if is_first_scene && rmse < rmse_cutoff      
         tform_total = tform;
@@ -27,6 +32,10 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         tform_prev = tform;
         
         pc_aligned = pctransform(moving, tform_total);  
+        
+%         pc_test = pcmerge(pc_scene, pc_aligned, grid_size);
+%         figure;
+%         pcshow(pc_test);
         
         moving = pcdownsample(pc_aligned, 'gridAverage', grid_size);  
         fixed = pcdownsample(pc_scene, 'gridAverage', grid_size); 

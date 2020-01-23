@@ -1,9 +1,9 @@
 function [pc_remain, pc_floor] = remove_floor(pc)
-    max_distance = 20;
+    max_distance = 50;
     
     reference_vector = [0, 0, 1];
     
-    max_angle = 30;
+    max_angle = 45;
     
     [~, inlier_indices, outlier_indices] = pcfitplane(pc, ...
             max_distance, reference_vector, max_angle);

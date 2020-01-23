@@ -1,12 +1,11 @@
-function [plant_pc, pot_pc] = remove_pot(pc)
-    max_distance = 35;
-    
-    reference_vector = [0, 0, 1];
-    
-    max_angle = 30;
+function [plant_pc, pot_plane] = remove_pot(pc)
+    max_distance = 35;    
+    reference_vector = [0, 0, 1];    
+    max_angle = 45;
+    confidence = 80;
     
     [plane_model, inlier_indices, outlier_indices] = pcfitplane(pc, ...
-            max_distance, reference_vector, max_angle);
+            max_distance, reference_vector, max_angle, 'Confidence', confidence);
         
     pot_plane = select(pc, inlier_indices);
     remain_pc = select(pc, outlier_indices);
