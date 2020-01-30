@@ -12,5 +12,9 @@ function [height, x_width, y_width, convex_hull_vol, LAI] = get_measurements(pc)
     
     [~, convex_hull_vol] = convhull(X, Y, Z);
     
-    LAI = get_LAI(X, Y);
+    vert_projection = get_vertical_projection(X, Y);
+    
+    dims = size(vert_projection);
+    
+    LAI = nnz(vert_projection)/(dims(1) * dims(2));
 end 

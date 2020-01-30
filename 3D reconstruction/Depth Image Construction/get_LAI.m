@@ -1,4 +1,4 @@
-function LAI = get_LAI(X, Y)
+function vert_projection = get_vertical_projection(X, Y)
     round_X = int32(X);
     round_Y = int32(Y);
     
