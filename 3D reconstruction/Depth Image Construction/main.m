@@ -55,7 +55,7 @@ for i = 1:numel(folder_contents)
         end
     end
     
-    if count
+    if count == 3
         break
     end
 end

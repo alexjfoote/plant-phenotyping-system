@@ -55,6 +55,7 @@ function pc = construct_point_cloud(depth_ims)
     pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
     disp('Removing noise')
     pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 20, 'Threshold', 1);
+%     pc_denoised = pcdenoise(pc_scene);
     
-    pc = shift_reference(pc_denoised.Location, pc_pot_plane);
+    pc = shift_reference(pc_denoised, pc_pot_plane);
 end
