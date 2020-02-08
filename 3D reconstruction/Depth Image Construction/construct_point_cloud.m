@@ -1,4 +1,4 @@
-function pc = construct_point_cloud(depth_ims)
+function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
     is_first_plant = true;
     is_first_scene = true;
 
@@ -12,7 +12,7 @@ function pc = construct_point_cloud(depth_ims)
 
         plant_point = find_plant(depth_im, background_distance);
 
-        segmented_im = segment_depth_im(depth_im, plant_point);
+        segmented_im = segment_depth_im(depth_im, plant_point, bounding_box);
 
         pc_count = pc_count + 1;
         fprintf('Constructing point cloud from depth image %d\n', pc_count);
@@ -20,18 +20,24 @@ function pc = construct_point_cloud(depth_ims)
         
 %         figure;
 %         pcshow(pc);
-
-        [pc_no_floor, ~] = remove_floor(pc);
+        
+        for j = 1:strlength(plane_axes)
+            reference_axis = plane_axes(j);
+            [pc, plane_model] = remove_plane(pc, reference_axis);
+        end
         
 %         figure;
-%         pcshow(pc_no_floor);
+%         pcshow(pc);
 
-        [pc_plant, pc_pot_plane] = remove_pot(pc_no_floor);
+        [pc_plant, pc_pot_plane] = remove_pot(pc, plane_model);
         
 %         figure;
 %         pcshow(pc_plant);
-
+        
+        tic
+        pc_plant = pcdownsample(pc_plant, 'gridAverage', 1);
         pc_new = pcdenoise(pc_plant, 'NumNeighbors', 25, 'Threshold', 0.01);
+        toc
         
 %         figure;
 %         pcshow(pc_new);

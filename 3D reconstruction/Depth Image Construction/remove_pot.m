@@ -1,8 +1,9 @@
-function [plant_pc, pot_plane] = remove_pot(pc)
-    max_distance = 35;    
-    reference_vector = [0, 0, 1];    
-    max_angle = 45;
-    confidence = 80;
+function [plant_pc, pot_plane] = remove_pot(pc, floor_plane)
+    max_distance = 30;    
+%     reference_vector = [0, 0, 1];    
+    reference_vector = floor_plane.Normal;  
+    max_angle = 20;
+    confidence = 60;
     
     [plane_model, inlier_indices, outlier_indices] = pcfitplane(pc, ...
             max_distance, reference_vector, max_angle, 'Confidence', confidence);

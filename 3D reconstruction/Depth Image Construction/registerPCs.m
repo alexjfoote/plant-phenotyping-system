@@ -40,8 +40,8 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         moving = pcdownsample(pc_aligned, 'gridAverage', grid_size);  
         fixed = pcdownsample(pc_scene, 'gridAverage', grid_size); 
 
-        tform_tidy = pcregistericp(moving, fixed, 'Extrapolate', true);
-
+        [tform_tidy, ~, rmse2] = pcregistericp(moving, fixed, 'Extrapolate', true);
+        rmse2
         pc_registered = pctransform(pc_aligned, tform_tidy);
         pc_registered = pcmerge(pc_scene, pc_registered, grid_size);
 
