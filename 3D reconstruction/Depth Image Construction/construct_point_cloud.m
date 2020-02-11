@@ -40,11 +40,9 @@ function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
         
 %         figure;
 %         pcshow(pc_plant);
-        
-        tic
+
         pc_plant = pcdownsample(pc_plant, 'gridAverage', 1);
         pc_new = pcdenoise(pc_plant, 'NumNeighbors', 25, 'Threshold', 0.01);
-        toc
         
 %         figure;
 %         pcshow(pc_new);
@@ -65,10 +63,11 @@ function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
         pc_base = pc_new;
     end
     
-    pc_scene = pcdownsample(pc_scene, 'gridAverage', 0.1);
+    pc = pcdownsample(pc_scene, 'gridAverage', 0.1);
     disp('Removing noise')
-    pc_denoised = pcdenoise(pc_scene, 'NumNeighbors', 20, 'Threshold', 1);
+    pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.5);
+    
 %     pc_denoised = pcdenoise(pc_scene);
     
-    pc = shift_reference(pc_denoised, pc_pot_plane);
+    pc = shift_reference(pc, pc_pot_plane);
 end

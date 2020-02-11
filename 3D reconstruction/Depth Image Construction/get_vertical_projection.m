@@ -25,8 +25,6 @@ function vert_projection = get_vertical_projection(X, Y)
     vert_projection = bwmorph(vert_projection, 'close');
     vert_projection = imfill(vert_projection, 'holes');
     
-    figure;
-    imshow(vert_projection);
-    
-    
+%     figure;
+%     imshow(vert_projection);
 end

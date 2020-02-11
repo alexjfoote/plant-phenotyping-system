@@ -30,7 +30,7 @@ bounding_boxes = [250, 1500, 1, 1500;
 
 for i = 1:numel(folder_contents)
     item = folder_contents(i);
-    
+    tic
     if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..')
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
@@ -60,19 +60,19 @@ for i = 1:numel(folder_contents)
             pcwrite(pc, pc_filename);
         end
     end
-    
-%     if count == 1
-%         break
-%     end
+    toc
+    if count == 1
+        break
+    end
 end
 
-figure;
-plot(heights);
-figure;
-plot(x_widths);
-figure;
-plot(y_widths);
-figure;
-plot(convex_hull_vols);
-figure;
-plot(LAIs);
+% figure;
+% plot(heights);
+% figure;
+% plot(x_widths);
+% figure;
+% plot(y_widths);
+% figure;
+% plot(convex_hull_vols);
+% figure;
+% plot(LAIs);
