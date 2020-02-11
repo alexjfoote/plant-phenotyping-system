@@ -20,16 +20,23 @@ function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
         
 %         figure;
 %         pcshow(pc);
+
+        pc = segment_point_cloud(pc, bounding_box);
+
+%         figure;
+%         pcshow(pc);
+
+%         break
         
         for j = 1:strlength(plane_axes)
             reference_axis = plane_axes(j);
-            [pc, plane_model] = remove_plane(pc, reference_axis);
+            [pc, plane_model] = remove_plane(pc, reference_axis, bounding_box(4));
         end
         
 %         figure;
 %         pcshow(pc);
 
-        [pc_plant, pc_pot_plane] = remove_pot(pc, plane_model);
+        [pc_plant, pc_pot_plane] = remove_pot(pc, plane_model, bounding_box(4));
         
 %         figure;
 %         pcshow(pc_plant);

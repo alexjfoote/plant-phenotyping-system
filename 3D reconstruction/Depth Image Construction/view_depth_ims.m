@@ -14,16 +14,21 @@ for i = 1:im_no
 %     figure;
 %     imshow(mat2gray(depth_im));
     
-%     pc = depthImage2PC(depth_im);
-%     
-%     figure;
-%     pcshow(pc);
-    
-%     break
-    
     mode_z = find_plant(depth_im, 2000);
     
-    segmented_im = segment_depth_im(depth_im, mode_z, [70, 30, 30, 0]);  
+    segmented_im = segment_depth_im(depth_im, mode_z, [0, 0, 0, 0]);  
+    
+    pc = depthImage2PC(segmented_im);
+    
+    figure;
+    pcshow(pc);
+
+    pc = segment_point_cloud(pc, [500, 2000, 0, 2000]);
+
+    figure;
+    pcshow(pc);
+    
+    break
     
     figure;
     imshow(mat2gray(segmented_im));

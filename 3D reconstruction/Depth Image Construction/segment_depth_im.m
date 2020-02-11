@@ -9,8 +9,8 @@ function segmented_im = segment_depth_im(depth_im, plant_point, bounding_box)
     min_threshold = plant_point - z_width;
     max_threshold = plant_point + z_width;
     
-    distance_threshold_im = depth_im(1 + y_top:end - y_bottom, 1 + x_left:end - x_right);
-%     distance_threshold_im = depth_im;
+%     distance_threshold_im = depth_im(1 + y_top:end - y_bottom, 1 + x_left:end - x_right);
+    distance_threshold_im = depth_im;
     
     distance_threshold_im(distance_threshold_im > max_threshold | ...
         distance_threshold_im < min_threshold) = 0;

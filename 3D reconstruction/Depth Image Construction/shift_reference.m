@@ -31,21 +31,15 @@ function pc = shift_reference(pc_plant, pc_pot)
     
     if switched
         disp('Flipping');
-        figure;
-        pcshow(pc);
+%         figure;
+%         pcshow(pc);
         tform_flip = affine3d(get_transformation_matrix(pi, 'x'));
         pc = pctransform(pc, tform_flip);
-        figure;
-        pcshow(pc);
+%         figure;
+%         pcshow(pc);
     end
         
     pc = rotate_to_principal_axis(pc);    
     
-    xyz_shifted = pc.Location;
-    
-    for i = 1:3
-        xyz_shifted(:, i) = xyz_shifted(:, i) - min(xyz_shifted(:, i));
-    end
-    
-    pc = pointCloud(xyz_shifted);
+    pc = normalise_position(pc);
 end

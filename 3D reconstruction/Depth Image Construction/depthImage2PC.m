@@ -1,7 +1,4 @@
 function pc = depthImage2PC(depth_im)
-    pixel_to_mm_scale_factor = 1.4089;
-    base_distance = 500;
-
     im_dimensions = size(depth_im);
 
     height = im_dimensions(1);
@@ -12,20 +9,14 @@ function pc = depthImage2PC(depth_im)
     for i = 1:height
         for j = 1:width
             z = double(depth_im(i, j));
-            
-            normalised_z = z/base_distance;
                            
-            x = (j - width/2) * pixel_to_mm_scale_factor * normalised_z;
-            y = (i - height/2) * pixel_to_mm_scale_factor * normalised_z;
+            [x, y] = imagePoint2worldPoint(j, i, z, height, width);
             
             points(((i - 1) * width) + j, :) = [x, -z, -y];
         end
     end
     
     pc = pointCloud(points);
-    
+    pc = normalise_position(pc);    
     pc = pcdownsample(pc, 'gridAverage', 1);
-    
-%     pc = pcdenoise(pc);
-%     pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.01);
 end

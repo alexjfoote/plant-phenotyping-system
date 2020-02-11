@@ -6,12 +6,6 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
     
     [tform, ~, rmse] = pcregistericp(moving, fixed, 'Extrapolate', true);
     
-%     pc_test = pctransform(moving, tform);      
-%     pc_test = pcmerge(fixed, pc_test, grid_size);
-%     
-%     figure;
-%     pcshow(pc_test);
-    
     if is_first_scene && rmse < rmse_cutoff      
         tform_total = tform;
         tform_prev = tform;

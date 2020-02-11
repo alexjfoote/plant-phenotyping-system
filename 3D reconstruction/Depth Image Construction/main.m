@@ -23,10 +23,10 @@ plant_axes = ['y', 'y', 'x', 'x'];
 remove_plane_axes = {'z', 'z', 'z', 'z'};
 % plant_axes = ['x'];
 % remove_plane_axes = {'z'};
-bounding_boxes = [20, 50, 0, 0;
-    40, 85, 0, 0;
-    40, 0, 0, 0;
-    70, 30, 30, 0];
+bounding_boxes = [250, 1500, 1, 1500;
+    400, 1700, 0, 1500;
+    400, 1700, 0, 1500;
+    500, 2000, 0, 2000];
 
 for i = 1:numel(folder_contents)
     item = folder_contents(i);
@@ -34,7 +34,7 @@ for i = 1:numel(folder_contents)
     if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..')
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
-        path = fullfile(base_path, item.name, '4_3');
+        path = fullfile(base_path, item.name, '4_1');
 %         path = fullfile(base_path, item.name);
 %         path = fullfile(base_path, '4_1');
 

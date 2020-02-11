@@ -1,4 +1,4 @@
-function [plant_pc, pot_plane] = remove_pot(pc, floor_plane)
+function [plant_pc, pot_plane] = remove_pot(pc, floor_plane, plant_side_point)
     max_distance = 30;    
 %     reference_vector = [0, 0, 1];    
     reference_vector = floor_plane.Normal;  
@@ -21,7 +21,7 @@ function [plant_pc, pot_plane] = remove_pot(pc, floor_plane)
         distances(i) = (remain_pc.Location(i, :) - [0, 0, z_coord]) * plane_model.Normal';
     end
     
-    reference_distance = [0, 0, -z_coord] * plane_model.Normal';
+    reference_distance = [0, 0, plant_side_point] * plane_model.Normal';
     
     D = distances < 0;
     
