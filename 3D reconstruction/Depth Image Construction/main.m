@@ -34,7 +34,7 @@ for i = 1:numel(folder_contents)
     if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..')
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
-        path = fullfile(base_path, item.name, '4_1');
+        path = fullfile(base_path, item.name, '4_3');
 %         path = fullfile(base_path, item.name);
 %         path = fullfile(base_path, '4_1');
 

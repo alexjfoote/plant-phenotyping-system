@@ -1,6 +1,6 @@
-function projection = get_vertical_projection(X, Y)
-    round_X = int32(X);
-    round_Y = int32(Y);
+function projection = get_projection(X, Y)
+    round_X = round(X);
+    round_Y = round(Y);
     
     norm_X = round_X - min(round_X) + 1;
     norm_Y = round_Y - min(round_Y) + 1;
@@ -11,6 +11,7 @@ function projection = get_vertical_projection(X, Y)
     
     projection = zeros(max(norm_Y), max(norm_X));
         
+%     directions = [0, 0];
     directions = [0, 0; -1, 0; 1, 0; 0, -1; 0, 1; 1, 1; 1, -1; -1, 1; -1, -1]; 
     
     for i = 1:numel(unique_X)
@@ -24,7 +25,9 @@ function projection = get_vertical_projection(X, Y)
     
     projection = bwmorph(projection, 'close');
     projection = imfill(projection, 'holes');
+
+    projection = imrotate(projection, 180);
     
 %     figure;
-%     imshow(vert_projection);
+%     imshow(projection);
 end
