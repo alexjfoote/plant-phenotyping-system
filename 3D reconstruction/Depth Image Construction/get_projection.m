@@ -26,7 +26,7 @@ function projection = get_projection(X, Y)
     projection = bwmorph(projection, 'close');
     projection = imfill(projection, 'holes');
 
-    projection = imrotate(projection, 180);
+%     projection = imrotate(projection, 180);
     
 %     figure;
 %     imshow(projection);

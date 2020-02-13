@@ -61,18 +61,18 @@ for i = 1:numel(folder_contents)
         end
     end
     toc
-    if count == 1
-        break
-    end
+%     if count == 1
+%         break
+%     end
 end
 
-% figure;
-% plot(heights);
-% figure;
-% plot(x_widths);
-% figure;
-% plot(y_widths);
-% figure;
-% plot(convex_hull_vols);
-% figure;
-% plot(LAIs);
+figure;
+plot(heights);
+figure;
+plot(x_widths);
+figure;
+plot(y_widths);
+figure;
+plot(convex_hull_vols);
+figure;
+plot(LAIs);
