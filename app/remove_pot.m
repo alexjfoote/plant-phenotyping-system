@@ -1,7 +1,5 @@
-function [plant_pc, pot_plane] = remove_pot(pc, floor_plane, plant_side_point)
-    max_distance = 30;    
-%     reference_vector = [0, 0, 1];    
-    reference_vector = floor_plane.Normal;  
+function [plant_pc, pot_plane] = remove_pot(pc, reference_vector, plant_side_point)
+    max_distance = 30;     
     max_angle = 20;
     confidence = 60;
     

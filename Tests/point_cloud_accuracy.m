@@ -1,5 +1,5 @@
 function [rmse, pc_registered] = point_cloud_accuracy(pc_true, pc_test)
-    grid_size = 10;    
+    grid_size = 1;    
     
     moving = pcdownsample(pc_test, 'gridAverage', grid_size);    
     fixed = pcdownsample(pc_true, 'gridAverage', grid_size);  
@@ -9,5 +9,5 @@ function [rmse, pc_registered] = point_cloud_accuracy(pc_true, pc_test)
     pc_aligned = pctransform(pc_test, tform);
 %     pc_aligned = pc_test;
     
-    pc_registered = pcmerge(pc_true, pc_aligned, 1);
+    pc_registered = pcmerge(pc_true, pc_aligned, grid_size);
 end

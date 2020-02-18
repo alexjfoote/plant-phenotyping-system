@@ -1,4 +1,4 @@
-function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
+function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, bounding_box)
     is_first_plant = true;
     is_first_scene = true;
 
@@ -6,6 +6,8 @@ function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
     
     background_distance = 2000;
     rmse_cutoff = 15;
+    
+    reference_vector = [0, 0, 1];
 
     for i = 1:size(depth_ims, 3)
         depth_im = uint16(depth_ims(:, :, i));
@@ -27,22 +29,23 @@ function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
 %         pcshow(pc);
 
 %         break
-        
-        for j = 1:strlength(plane_axes)
-            reference_axis = plane_axes(j);
-            [pc, plane_model] = remove_plane(pc, reference_axis, bounding_box(4));
+        if do_remove_plane && do_remove_pot
+            [pc, plane_model] = remove_plane(pc, reference_vector, bounding_box(4));
+            [pc, pc_pot_plane] = remove_pot(pc, plane_model.Normal, bounding_box(4));
+        elseif do_remove_plane
+            pc = remove_plane(pc, reference_vector, bounding_box(4));
+        elseif do_remove_pot
+            [pc, pc_pot_plane] = remove_pot(pc, reference_vector, bounding_box(4));
         end
         
 %         figure;
 %         pcshow(pc);
-
-        [pc_plant, pc_pot_plane] = remove_pot(pc, plane_model, bounding_box(4));
         
 %         figure;
 %         pcshow(pc_plant);
 
-        pc_plant = pcdownsample(pc_plant, 'gridAverage', 1);
-        pc_new = pcdenoise(pc_plant, 'NumNeighbors', 25, 'Threshold', 0.01);
+        pc = pcdownsample(pc, 'gridAverage', 1);
+        pc_new = pcdenoise(pc, 'NumNeighbors', 25, 'Threshold', 0.01);
         
 %         figure;
 %         pcshow(pc_new);
@@ -66,8 +69,4 @@ function pc = construct_point_cloud(depth_ims, plane_axes, bounding_box)
     pc = pcdownsample(pc_scene, 'gridAverage', 0.1);
     disp('Removing noise')
     pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.5);
-    
-%     pc_denoised = pcdenoise(pc_scene);
-    
-    pc = shift_reference(pc, pc_pot_plane);
 end

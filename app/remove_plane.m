@@ -1,14 +1,5 @@
-function [pc_remain, plane_model] = remove_plane(pc, reference_axis, plant_side_point)
-    max_distance = 50;
-    
-    if strcmp(reference_axis, 'x')        
-        reference_vector = [1, 0, 0];
-    elseif strcmp(reference_axis, 'y')        
-        reference_vector = [0, 1, 0];
-    elseif strcmp(reference_axis, 'z')   
-        reference_vector = [0, 0, 1];
-    end
-    
+function [pc_remain, plane_model] = remove_plane(pc, reference_vector, plant_side_point)
+    max_distance = 50;    
     max_angle = 25;
     
     [plane_model, inlier_indices, outlier_indices] = pcfitplane(pc, ...

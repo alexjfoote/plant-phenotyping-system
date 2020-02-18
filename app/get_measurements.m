@@ -1,4 +1,6 @@
-function [height, x_width, y_width, convex_hull_vol, LAI] = get_measurements(pc)
+function [height, x_width, y_width, convex_hull_vol, LAI] = get_measurements(pc, pc_pot_plane, do_vertical_rotate)
+    pc = shift_reference(pc, pc_pot_plane, do_vertical_rotate);
+
     pc_matrix = pc.Location;
     
     X = pc_matrix(:, 1);
