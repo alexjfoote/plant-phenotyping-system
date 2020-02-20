@@ -16,7 +16,7 @@ for i = 1:im_no
     
     mode_z = find_plant(depth_im, 2000);
     
-    segmented_im = segment_depth_im(depth_im, mode_z, [0, 0, 0, 0]);  
+    segmented_im = segment_depth_im(depth_im, mode_z);  
     
     pc = depthImage2PC(segmented_im);
     

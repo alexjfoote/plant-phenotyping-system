@@ -14,10 +14,10 @@ function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, b
 
         plant_point = find_plant(depth_im, background_distance);
 
-        segmented_im = segment_depth_im(depth_im, plant_point, bounding_box);
+        segmented_im = segment_depth_im(depth_im, plant_point);
 
         pc_count = pc_count + 1;
-        fprintf('Constructing point cloud from depth image %d\n', pc_count);
+%         fprintf('Constructing point cloud from depth image %d\n', pc_count);
         pc = depthImage2PC(segmented_im);
         
 %         figure;
@@ -51,14 +51,14 @@ function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, b
 %         pcshow(pc_new);
 
         if ~is_first_plant
-            fprintf('Registering point cloud %d\n', pc_count);
+%             fprintf('Registering point cloud %d\n', pc_count);
             if is_first_scene
                 [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(0, pc_base, pc_new, 0, 0, is_first_scene, rmse_cutoff);
             else
                 [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene, rmse_cutoff);
             end
             
-            rmse
+%             rmse
         end
 
         is_first_plant = false;
@@ -67,6 +67,12 @@ function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, b
     end
     
     pc = pcdownsample(pc_scene, 'gridAverage', 0.1);
-    disp('Removing noise')
+%     disp('Removing noise')
     pc = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.5);
+    
+    if do_remove_pot
+        pc = shift_reference(pc, pc_pot_plane, true);
+    else
+        pc = shift_reference(pc, 0, false);
+    end
 end

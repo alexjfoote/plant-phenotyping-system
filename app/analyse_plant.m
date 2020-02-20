@@ -4,12 +4,13 @@ function [pc, measurements] = analyse_plant(path)
     depth_ims = get_depth_ims(path, im_height, im_width, im_no, plant_axis);
     pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, bounding_box);
 
-    [height, x_width, y_width, convex_hull_vol, LAI] = get_measurements(pc, true);
+    [height, convex_hull_volume, LAI, plant_aspect_ratio, ...
+        bi_angular_convex_hull_area_ratio] = get_measurements(pc);
 
     measurements.height = height;
-    measurements.x_width = x_width;
-    measurements.y_width = y_width;
-    measurements.convex_hull_vol = convex_hull_vol;
+    measurements.plant_aspect_ratio = plant_aspect_ratio;
+    measurements.bi_angular_convex_hull_area_ratio = bi_angular_convex_hull_area_ratio;
+    measurements.convex_hull_volume = convex_hull_volume;
     measurements.LAI = LAI;
 
     if save_pc

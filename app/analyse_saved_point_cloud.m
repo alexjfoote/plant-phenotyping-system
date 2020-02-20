@@ -1,19 +1,21 @@
-function measurements = analyse_saved_point_cloud(path)
+function measurements = analyse_saved_point_cloud(path, save_measurements)
     pc = pcread(path);
     
     split_path = split(path, '\');
-    full_file_name = split(split_path(end), '.');
-    file_name = full_file_name(1);
+    folder_path = join(split_path(1:end-1), '\');
+    full_file_name = split(split_path{end}, '.');
+    file_name = full_file_name{1};
 
-    [height, x_width, y_width, convex_hull_vol, LAI] = get_measurements(pc, 0, true);
+    [height, convex_hull_volume, LAI, plant_aspect_ratio, ...
+        bi_angular_convex_hull_area_ratio] = get_measurements(pc);
 
     measurements.height = height;
-    measurements.x_width = x_width;
-    measurements.y_width = y_width;
-    measurements.convex_hull_vol = convex_hull_vol;
+    measurements.plant_aspect_ratio = plant_aspect_ratio;
+    measurements.bi_angular_convex_hull_area_ratio = bi_angular_convex_hull_area_ratio;
+    measurements.convex_hull_volume = convex_hull_volume;
     measurements.LAI = LAI;
     
     if save_measurements
-        save(fullfile(path, file_name + 'Measurements.mat'), '-struct', 'measurements'); 
+        save(fullfile(folder_path{1}, strcat(file_name, 'Measurements.mat')), '-struct', 'measurements'); 
     end
 end

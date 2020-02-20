@@ -30,7 +30,7 @@ bounding_boxes = [250, 1500, 0, 1500;
 
 for i = 1:numel(folder_contents)
     item = folder_contents(i);
-    tic
+    
     if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..')
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
@@ -52,10 +52,10 @@ for i = 1:numel(folder_contents)
         convex_hull_vols = measurements.convex_hull_vol;
         LAIs = measurements.LAI;
     end
-    toc
-%     if count == 1
-%         break
-%     end
+    
+    if count == 1
+        break
+    end
 end
 
 figure;
