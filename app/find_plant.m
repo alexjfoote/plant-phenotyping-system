@@ -8,6 +8,9 @@ function mode_z = find_plant(depth_im, background_distance)
     
     centre_strip(centre_strip > background_distance) = 0;
     
+    figure;
+    imshow(mat2gray(centre_strip));
+    
     [z_counts, edges] = histcounts(centre_strip, 100);
     z_counts = z_counts(2:end);
     [~, mode_z_index] = max(z_counts);

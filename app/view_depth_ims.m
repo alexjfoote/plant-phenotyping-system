@@ -11,12 +11,33 @@ depth_ims = get_depth_ims(path, im_height, im_width, im_no, 'x');
 for i = 1:im_no
     depth_im = uint16(depth_ims(:, :, i));
     
-%     figure;
-%     imshow(mat2gray(depth_im));
+    largest = max(depth_im, [], 'all');
     
-    mode_z = find_plant(depth_im, 2000);
+    mat_depth_im = mat2gray(depth_im);
     
-    segmented_im = segment_depth_im(depth_im, mode_z);  
+%     depth_im(depth_im == 0) = 0.5;
+    
+    figure;
+    imshow(mat2gray(depth_im));
+    
+%     thresh = graythresh(mat_depth_im);
+    thresh = 2000/largest;
+
+    segment_thresh = thresh*largest
+    
+    threshold_im = imbinarize(mat_depth_im, thresh);
+    
+    figure;
+    imshow(threshold_im);
+    
+    mode_z = find_plant(depth_im, segment_thresh);
+    
+    segmented_im = segment_depth_im(depth_im, mode_z); 
+    
+    figure;
+    imshow(mat2gray(segmented_im));
+    
+    break
     
     pc = depthImage2PC(segmented_im);
     

@@ -1,4 +1,4 @@
-function [height, convex_hull_volume, LAI, plant_aspect_ratio, ...
+function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, ...
     bi_angular_convex_hull_area_ratio] = get_measurements(pc)
 
     pc = shift_reference(pc, 0, false);
@@ -24,10 +24,11 @@ function [height, convex_hull_volume, LAI, plant_aspect_ratio, ...
     
     [~, convex_hull_volume] = convhull(X, Y, Z);
     
-    vert_projection = get_vertical_projection(X, Y);
+    XZ_proj = get_projection(X, Z);
+    YZ_proj = get_projection(Y, Z);
+    XY_proj = get_projection(X, Y);
     
-    dims = size(vert_projection);
-    
-%     LAI = nnz(vert_projection)/(dims(1) * dims(2));
-    LAI = nnz(vert_projection)/XY_conv_hull_area;
+    PD_x = nnz(XZ_proj)/XZ_conv_hull_area;
+    PD_y = nnz(YZ_proj)/YZ_conv_hull_area;
+    PD_z = nnz(XY_proj)/XY_conv_hull_area;
 end 
