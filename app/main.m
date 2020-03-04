@@ -4,7 +4,7 @@ im_height = 424;
 im_width = 512;
 im_no = 11;
 
-save_pc = true;
+save_pc = false;
 save_measurements = false;
 
 % base_path = 'C:\Users\alexj\Documents\sorghum_data\15-08-20';
@@ -34,7 +34,7 @@ for i = 1:numel(folder_contents)
     if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..')
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
-        path = fullfile(base_path, item.name, '4_1');
+        path = fullfile(base_path, item.name, '4_2');
 %         path = fullfile(base_path, item.name);
 %         path = fullfile(base_path, '4_1');
 
