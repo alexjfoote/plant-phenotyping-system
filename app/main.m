@@ -33,14 +33,14 @@ fore_back_thresholds = [250, 1500;
     250, 1800;
     250, 1800];
     
-
+tic
 for i = 1:numel(folder_contents)
     item = folder_contents(i);
     
     if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..') && strcmp(item.name, '15-08-03') 
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
-        path = fullfile(base_path, item.name, '166_1');
+        path = fullfile(base_path, item.name, '4_1');
 %         path = fullfile(base_path, item.name);
 %         path = fullfile(base_path, '4_1');
 
@@ -63,14 +63,14 @@ for i = 1:numel(folder_contents)
         break
     end
 end
-
-figure;
-plot(heights);
-figure;
-plot(x_widths);
-figure;
-plot(y_widths);
-figure;
-plot(convex_hull_vols);
-figure;
-plot(LAIs);
+toc
+% figure;
+% plot(heights);
+% figure;
+% plot(x_widths);
+% figure;
+% plot(y_widths);
+% figure;
+% plot(convex_hull_vols);
+% figure;
+% plot(LAIs);

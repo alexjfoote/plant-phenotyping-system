@@ -72,15 +72,15 @@ function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, b
         if ~is_first_plant
             fprintf('Registering point cloud %d\n', pc_count);
             if is_first_scene
-                [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = new_registerPCs(0, pc_base, pc_new, 0, 0, is_first_scene, rmse_cutoff);
+                [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(0, pc_base, pc_new, 0, 0, is_first_scene, rmse_cutoff);
             else
-                [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = new_registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene, rmse_cutoff);
+                [pc_scene, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene, rmse_cutoff);
             end
             
             rmse
             
-            figure;
-            pcshow(pc_scene);
+%             figure;
+%             pcshow(pc_scene);
         end
 
         is_first_plant = false;
