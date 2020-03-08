@@ -28,13 +28,19 @@ bounding_boxes = [250, 1500, 0, 1500;
     400, 1700, 0, 1500;
     500, 2000, 0, 2000];
 
+fore_back_thresholds = [250, 1500;
+    250, 1800;
+    250, 1800;
+    250, 1800];
+    
+
 for i = 1:numel(folder_contents)
     item = folder_contents(i);
     
-    if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..')
+    if item.isdir && ~strcmp(item.name, '.') && ~strcmp(item.name, '..') && strcmp(item.name, '15-08-03') 
         count = count + 1;
         % path = fullfile(erase(mfilename('fullpath'), 'main'), '\Example Data');
-        path = fullfile(base_path, item.name, '4_2');
+        path = fullfile(base_path, item.name, '166_1');
 %         path = fullfile(base_path, item.name);
 %         path = fullfile(base_path, '4_1');
 

@@ -27,11 +27,14 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         end
         
     else
-        if rmse < rmse_cutoff        
+        if rmse < rmse_cutoff
+            initial_alignment = pctransform(moving, tform);
+            pc_aligned = pctransform(initial_alignment, tform_total);
+            
             tform_total = affine3d(tform_total.T * tform.T);
             tform_prev = tform;
 
-            pc_aligned = pctransform(moving, tform_total); 
+            %pc_aligned = pctransform(moving, tform_total); 
 
             pc_registered = pcmerge(pc_scene, pc_aligned, grid_size); 
         else

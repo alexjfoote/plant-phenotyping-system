@@ -6,36 +6,24 @@ im_height = 424;
 im_width = 512;
 im_no = 12;
 
-depth_ims = get_depth_ims(path, im_height, im_width, im_no, 'x');
+depth_ims = get_depth_ims(path, im_height, im_width, im_no, 'y');
 
 for i = 1:im_no
     depth_im = uint16(depth_ims(:, :, i));
     
-    largest = max(depth_im, [], 'all');
-    
-    mat_depth_im = mat2gray(depth_im);
-    
-%     depth_im(depth_im == 0) = 0.5;
+    max_value = double(max(depth_im, [], 'all'));
     
     figure;
-    imshow(mat2gray(depth_im));
+    imagesc(depth_im);
+    colorbar;
     
-%     thresh = graythresh(mat_depth_im);
-    thresh = 2000/largest;
-
-    segment_thresh = thresh*largest
+    mode_z = find_plant(depth_im, 2000);
     
-    threshold_im = imbinarize(mat_depth_im, thresh);
+    segmented_im = segment_depth_im(depth_im, 250, 1800); 
     
     figure;
-    imshow(threshold_im);
-    
-    mode_z = find_plant(depth_im, segment_thresh);
-    
-    segmented_im = segment_depth_im(depth_im, mode_z); 
-    
-    figure;
-    imshow(mat2gray(segmented_im));
+    imagesc(segmented_im);
+    colorbar;
     
     break
     

@@ -31,4 +31,12 @@ function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, ...
     PD_x = nnz(XZ_proj)/XZ_conv_hull_area;
     PD_y = nnz(YZ_proj)/YZ_conv_hull_area;
     PD_z = nnz(XY_proj)/XY_conv_hull_area;
+
+%     PD_x = nnz(XZ_proj);
+%     PD_y = nnz(YZ_proj);
+%     PD_z = nnz(XY_proj);
+
+%     PD_x = XZ_conv_hull_area;
+%     PD_y = YZ_conv_hull_area;
+%     PD_z = XY_conv_hull_area;
 end 

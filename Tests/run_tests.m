@@ -11,7 +11,7 @@ end_paths = get_end_paths(base_path, {});
 
 % path = 'C:\Users\alexj\Documents\sorghum_data\15-08-03\9_1';
 
-NRMSEs = statistical_tests(end_paths);
+[CVRMSEs, p, NRMSEs] = statistical_tests(end_paths);
 
 % folder_contents = dir(path);
 % for j = 1:numel(folder_contents)
