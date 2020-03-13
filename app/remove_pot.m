@@ -1,4 +1,7 @@
 function [plant_pc, pot_plane] = remove_pot(pc, reference_vector, plant_side_point)
+    % Fits a plane to the top of a pot and removes the plane points and all
+    % points on the non-plant side of the plane
+    
     max_distance = 30;     
     max_angle = 20;
     confidence = 60;

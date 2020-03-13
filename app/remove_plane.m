@@ -1,4 +1,7 @@
 function [pc_remain, plane_model] = remove_plane(pc, reference_vector, plant_side_point)
+    % Fits a plane to a point cloud and removes all points within the
+    % plane, as well as all points on the non-plant side of the plane
+    
     max_distance = 50;    
     max_angle = 25;
     
@@ -18,7 +21,6 @@ function [pc_remain, plane_model] = remove_plane(pc, reference_vector, plant_sid
         distances(i) = (pc_remain.Location(i, :) - [0, 0, z_coord]) * plane_model.Normal';
     end
     
-%     reference_distance = [0, 0, -z_coord] * plane_model.Normal';
     reference_distance = [0, 0, plant_side_point] * plane_model.Normal';
     
     D = distances < 0;

@@ -1,4 +1,7 @@
 function principal_pc = rotate_to_principal_axis(pc)
+    % Rotates a point cloud so that the widest axis is parallel to the x
+    % axis
+    
     max_width = 0;
     principal_angle = 0;
     

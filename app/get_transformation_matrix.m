@@ -1,4 +1,7 @@
 function tform_matrix = get_transformation_matrix(angle, axis)
+    % Computes the affine transformation matrix that rotates a set of
+    % points by a given angle around a given axis
+
     if strcmp(axis, 'x')
         tform_matrix = [1 0 0 0;
             0 cos(angle) sin(angle) 0;

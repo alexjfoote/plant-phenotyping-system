@@ -1,6 +1,6 @@
-function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, ...
-    bi_angular_convex_hull_area_ratio] = get_measurements(pc)
-
+function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, bi_angular_convex_hull_area_ratio] = get_measurements(pc)
+    % Extracts measurements from a point cloud
+    
     pc = shift_reference(pc, 0, false);
 
     pc_matrix = double(pc.Location);
@@ -31,12 +31,4 @@ function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, ...
     PD_x = nnz(XZ_proj)/XZ_conv_hull_area;
     PD_y = nnz(YZ_proj)/YZ_conv_hull_area;
     PD_z = nnz(XY_proj)/XY_conv_hull_area;
-
-%     PD_x = nnz(XZ_proj);
-%     PD_y = nnz(YZ_proj);
-%     PD_z = nnz(XY_proj);
-
-%     PD_x = XZ_conv_hull_area;
-%     PD_y = YZ_conv_hull_area;
-%     PD_z = XY_conv_hull_area;
 end 

@@ -6,41 +6,45 @@ im_height = 424;
 im_width = 512;
 im_no = 12;
 
-depth_ims = get_depth_ims(path, im_height, im_width, im_no, 'y');
+depth_ims = get_depth_ims(path, im_height, im_width, im_no, 'x');
 
 for i = 1:im_no
     depth_im = uint16(depth_ims(:, :, i));
     
-    max_value = double(max(depth_im, [], 'all'));
+    if mod(i-1, 2) == 0
+        figure;
+        imagesc(depth_im);
+        colorbar;
+    end
     
-    figure;
-    imagesc(depth_im);
-    colorbar;
-    
-    mode_z = find_plant(depth_im, 2000);
-    
-    segmented_im = segment_depth_im(depth_im, 250, 1800); 
-    
-    figure;
-    imagesc(segmented_im);
-    colorbar;
-    
-    break
-    
-    pc = depthImage2PC(segmented_im);
-    
-    figure;
-    pcshow(pc);
-
-    pc = segment_point_cloud(pc, [500, 2000, 0, 2000]);
-
-    figure;
-    pcshow(pc);
-    
-    break
-    
-    figure;
-    imshow(mat2gray(segmented_im));
+%     figure;
+%     imagesc(depth_im);
+%     colorbar;
+%     
+%     mode_z = find_plant(depth_im, 2000);
+%     
+%     segmented_im = segment_depth_im(depth_im, 250, 1800); 
+%     
+%     figure;
+%     imagesc(segmented_im);
+%     colorbar;
+%     
+%     break
+%     
+%     pc = depthImage2PC(segmented_im);
+%     
+%     figure;
+%     pcshow(pc);
+% 
+%     pc = segment_point_cloud(pc, [500, 2000, 0, 2000]);
+% 
+%     figure;
+%     pcshow(pc);
+%     
+%     break
+%     
+%     figure;
+%     imshow(mat2gray(segmented_im));
     
 %     pc = depthImage2PC(segmented_im);
     

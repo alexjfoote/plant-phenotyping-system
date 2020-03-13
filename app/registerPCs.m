@@ -1,14 +1,14 @@
 function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = registerPCs(pc_scene, pc_base, pc_new, tform_prev, tform_total, is_first_scene, rmse_cutoff)
-    grid_size = 1;    
-    
-    rmse_cutoff = 15;
+    % Registers a new point cloud into the overall point cloud  
+
+    grid_size = 2;    
     
     moving = pcdownsample(pc_new, 'gridAverage', grid_size);    
     fixed = pcdownsample(pc_base, 'gridAverage', grid_size);  
     
-    [tform, ~, rmse] = pcregistericp(moving, fixed, 'Extrapolate', true);
+    if is_first_scene 
+        [tform, ~, rmse] = pcregistericp(moving, fixed, 'Extrapolate', true);
     
-    if is_first_scene      
         if rmse < rmse_cutoff        
             tform_total = tform;
             tform_prev = tform;
@@ -29,6 +29,9 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         end
         
     else
+        [tform, ~, rmse] = pcregistericp(moving, fixed, 'Extrapolate', true, ...
+        'MaxIterations', 20);
+    
         temp_tform_total = affine3d(tform_total.T * tform.T);
         pc_aligned = pctransform(moving, temp_tform_total);  
         
@@ -36,7 +39,7 @@ function [pc_registered, tform_prev, tform_total, is_first_scene, rmse] = regist
         fixed = pcdownsample(pc_scene, 'gridAverage', grid_size); 
 
         [tform_tidy, ~, rmse_tidy] = pcregistericp(moving, fixed, ...
-            'Extrapolate', true, 'MaxIterations', 40);
+            'Extrapolate', true);
         
         if rmse_tidy < rmse_cutoff 
             tform_total = affine3d(temp_tform_total.T * tform_tidy.T); 

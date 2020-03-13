@@ -1,4 +1,6 @@
 function measurements = analyse_saved_point_cloud(path, save_measurements)
+    % Extracts measurements from a saved point cloud
+
     pc = pcread(path);
     
     split_path = split(path, '\');

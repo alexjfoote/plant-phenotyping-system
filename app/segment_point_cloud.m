@@ -1,4 +1,6 @@
 function pc_segmented = segment_point_cloud(pc, bounding_box)
+    % Segments a point cloud based on the specified bounding box
+    
     points = pc.Location;
     x = points(:, 1);
     y = points(:, 2);

@@ -1,4 +1,6 @@
 function pc_normalised = normalise_position(pc)
+    % Shifts a point cloud such that the minimum values of x, y, z are 0
+    
     xyz_shifted = pc.Location;
     
     for i = 1:3

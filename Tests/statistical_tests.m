@@ -42,10 +42,10 @@ function [CVRMSEs, p, NRMSEs] = statistical_tests(paths)
                     error_count = error_count + 1;
                     
                     if mod(error_count, 1) == 0
-                        pc = pcread(fullfile(path, 'pointCloud.ply'));
+%                         pc = pcread(fullfile(path, 'pointCloud.ply'));
 
-                        figure;
-                        pcshow(pc);
+%                         figure;
+%                         pcshow(pc);
                         
                         path
                         field

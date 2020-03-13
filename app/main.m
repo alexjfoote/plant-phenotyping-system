@@ -26,14 +26,14 @@ plant_axes = ['y', 'y', 'x', 'x'];
 bounding_boxes = [250, 1500, 0, 1500;
     400, 1700, 0, 1500;
     400, 1700, 0, 1500;
-    500, 2000, 0, 2000];
+    500, 2000, 0, 1800];
 
 fore_back_thresholds = [250, 1500;
     250, 1800;
     250, 1800;
     250, 1800];
     
-tic
+% tic
 for i = 1:numel(folder_contents)
     item = folder_contents(i);
     
@@ -51,19 +51,13 @@ for i = 1:numel(folder_contents)
         
         figure;
         pcshow(pc);
-        
-        heights(count) = measurements.height;
-        x_widths(count) = measurements.x_width;
-        y_widths(count) = measurements.y_width;
-        convex_hull_vols = measurements.convex_hull_vol;
-        LAIs = measurements.LAI;
     end
     
     if count == 1
         break
     end
 end
-toc
+% toc
 % figure;
 % plot(heights);
 % figure;

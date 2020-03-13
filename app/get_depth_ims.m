@@ -1,4 +1,6 @@
 function depth_ims = get_depth_ims(path, im_height, im_width, im_no, plant_axis)
+    % Retrieves a set of depth images from the folder specified by path
+    
     folder_contents = dir(path);
     
     rotate = false;
