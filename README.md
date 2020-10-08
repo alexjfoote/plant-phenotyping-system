@@ -50,7 +50,7 @@ population prospects 2019,” 2019.
 
 [5] FAO, “The future of food and agriculture – trends and challenges,” 2017.
 
-[6] ——, “Global agriculture towards 2050,” 2009.
+[6] FAO, “Global agriculture towards 2050,” 2009.
 
 [7] S. S. Myers, M. R. Smith, S. Guth, C. D. Golden, B. Vaitla, N. D. Mueller, A. D. Dangour,
 and P. Huybers, “Climate change and global food systems: Potential impacts on food
