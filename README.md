@@ -17,11 +17,13 @@ where 19.9% of their population are undernourished, the highest proportion of an
 increased demand for biofuel, means that the demand for cereal crops, which constitute roughly
 half of the daily calories of individuals in developing countries [5], is predicted to increase by
 approximately 50% by 2050 [6].
+
 Climate change also presents major challenges regarding food production, with changes
 in temperature, rainfall, and other factors, as well as an increase in the frequency of extreme
 weather events negatively affecting crop yield [7]. Climate change will have a greater impact
 on areas of low latitude, that correspond to developing regions with poor food security, such as
 sub-Saharan Africa [8].
+
 To meet the demands of increased cereal production and reduce the prevalence of undernutrition, plant breeds that produce greater yields are required. These plants will also need to be
 able to survive in the increasingly stressful conditions that climate change will create. To identify
 and select breeds with these desirable characteristics, the ability to measure the response of the
