@@ -35,3 +35,28 @@ plant phenotyping have motivated research into the development of automated plan
 1
 the phenotype can be measured across several timepoints.
 
+## References
+[1] FAO, “The state of food security and nutrition in the world,” 2019.
+
+[2] R. Black, C. Victora, S. Walker, Z. Bhutta, P. Christian, M. de Onis, M. Ezzati,
+
+S. Grantham-McGregor, J. Katz, R. Martorell, and R. Uauy, “Maternal and child undernutrition and overweight in low-income and middle-income countries,” Lancet, vol. 382,
+pp. 427–451, 2013.
+
+[3] United Nations, Department of Economic and Social Affairs, Population Division, “World
+population prospects 2019,” 2019.
+
+[4] J. Cleland, “World population growth; past, present and future,” Environmental and Resource Economics, vol. 55, 2013.
+
+[5] FAO, “The future of food and agriculture – trends and challenges,” 2017.
+
+[6] ——, “Global agriculture towards 2050,” 2009.
+
+[7] S. S. Myers, M. R. Smith, S. Guth, C. D. Golden, B. Vaitla, N. D. Mueller, A. D. Dangour,
+and P. Huybers, “Climate change and global food systems: Potential impacts on food
+security and undernutrition,” Annual Review of Public Health, vol. 38, no. 1, pp. 259–277,
+2017.
+
+[8] R.T.Watson, M.C.Zinyowera, and R.H.Moss, The Regional Impacts of Climate
+Change: An Assessment of Vulnerability. Summary for Policymakers. Cambridge University Press, 1997, accessed February 25, 2019. [Online]. Available:
+https://archive.ipcc.ch/ipccreports/sres/regional/index.php?idp=0
