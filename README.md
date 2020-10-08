@@ -1,6 +1,6 @@
 # Plant Phenotyping System
 
-Please refer the Technical Report for a detailed report on the project and the developed software.
+Please refer to the Technical Report for a detailed report on the project and the developed software.
 
 ## Aim
 This project aims to develop highly automated plant phenotyping software. The software will
