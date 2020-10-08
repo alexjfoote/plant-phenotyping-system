@@ -13,8 +13,7 @@ several timepoints.
 In 2017, 10.8% of the global population, corresponding to 810 million people, were undernourished [1], and undernutrition is estimated be responsible for close to half of all child deaths annually [2]. Decreasing the number of undernourished people and improving global food security
 is a major challenge, made even more difficult by a growing global population that is expected
 to reach approximately 10 billion by 2050 [3]. Additionally, the majority of this growth is expected to come from regions with the greatest food insecurity, with the population of Africa -
-where 19.9% of their population are undernourished, the highest proportion of any region [1]
-- forecast to double in the same timeframe [4]. This population growth, combined with the
+where 19.9% of their population are undernourished, the highest proportion of any region [1] - forecast to double in the same timeframe [4]. This population growth, combined with the
 increased demand for biofuel, means that the demand for cereal crops, which constitute roughly
 half of the daily calories of individuals in developing countries [5], is predicted to increase by
 approximately 50% by 2050 [6].
