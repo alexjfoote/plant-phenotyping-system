@@ -31,9 +31,7 @@ physical and physiological traits of a plant to a particular environment is cruc
 these traits have been measured by hand, a slow and labour intensive process that often becomes
 a bottleneck in plant breeding [9]. Additionally, some measurements could only be taken at a
 single timepoint, as they required the destruction of the plant. These problems with manual
-plant phenotyping have motivated research into the development of automated plant phenotyping systems, which can extract useful measurements at high-throughputs, non-destructively, so
-1
-the phenotype can be measured across several timepoints.
+plant phenotyping have motivated research into the development of automated plant phenotyping systems, which can extract useful measurements at high-throughputs, non-destructively, so the phenotype can be measured across several timepoints.
 
 ## References
 [1] FAO, “The state of food security and nutrition in the world,” 2019.
