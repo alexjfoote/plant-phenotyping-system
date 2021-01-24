@@ -1,4 +1,8 @@
 function pc = rotate_to_vertical(pc_plant, pc_pot) 
+    % Registers the extracted pot plane to a generated horizontal plane,
+    % and applies the resultant transfrom to rotate the plant point cloud
+    % to its vertical position
+
     num_points = 5000;
     width = 200;
 
@@ -8,7 +12,7 @@ function pc = rotate_to_vertical(pc_plant, pc_pot)
     
     pc_plane = pointCloud(plane);
     
-    pc_plane = pcdenoise(pc_plane);
+    pc_pot = pcdenoise(pc_pot, 'NumNeighbors', 10, 'Threshold', 0.05);
     
     [~, ~, tform_total, ~, ~] = registerPCs(0, pc_plane, pc_pot, 0, 0, true, inf);
 

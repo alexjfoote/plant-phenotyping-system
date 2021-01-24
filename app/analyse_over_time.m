@@ -1,4 +1,7 @@
 function [pcs, measurements_4D] = analyse_over_time(base_path, plant_id)
+    % Calls analyse_plant and passes it the path for each time point for a
+    % particular plant
+
     pcs = {};
     measurements_4D = {};
     

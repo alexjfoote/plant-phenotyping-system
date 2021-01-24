@@ -1,6 +1,6 @@
-function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, ...
-    bi_angular_convex_hull_area_ratio] = get_measurements(pc)
-
+function [height, convex_hull_volume, PD_x, PD_y, PD_z, plant_aspect_ratio, bi_angular_convex_hull_area_ratio] = get_measurements(pc)
+    % Extracts measurements from a point cloud
+    
     pc = shift_reference(pc, 0, false);
 
     pc_matrix = double(pc.Location);

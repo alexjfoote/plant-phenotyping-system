@@ -1,4 +1,7 @@
 function paths = get_end_paths(directory, paths)
+    % Returns a cell array containing the base paths of a folder, i.e., the
+    % folders that only have files in them
+    
     folder_contents = dir(directory);
     
     end_path = true;

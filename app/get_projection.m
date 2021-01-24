@@ -1,4 +1,6 @@
 function projection = get_projection(X, Y)
+    % Returns a binary image created from a set of 2D points
+    
     round_X = int32(X);
     round_Y = int32(Y);
     

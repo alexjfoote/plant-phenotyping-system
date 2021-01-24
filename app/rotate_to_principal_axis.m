@@ -1,8 +1,11 @@
 function principal_pc = rotate_to_principal_axis(pc)
+    % Rotates a point cloud so that the widest axis is parallel to the x
+    % axis
+    
     max_width = 0;
     principal_angle = 0;
     
-    interval = 1;
+    interval = 5;
     angle = interval*pi/180;
     
     tform_matrix = get_transformation_matrix(angle, 'z');

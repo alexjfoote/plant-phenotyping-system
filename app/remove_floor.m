@@ -1,4 +1,6 @@
 function [pc_remain, pc_plane] = remove_floor(pc)
+    % Fits a plane to a point cloud and removes the plane points
+    
     max_distance = 50;
     
     reference_vector = [0, 0, 1];
