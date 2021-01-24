@@ -23,9 +23,6 @@ function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, d
         pc = depthImage2PC(segmented_im);
 
         pc = segment_point_cloud(pc, bounding_box);
-        
-        figure;
-        pcshow(pc);
 
         if do_remove_plane && do_remove_pot
             [pc, plane_model] = remove_plane(pc, reference_vector, bounding_box(4));
@@ -35,9 +32,6 @@ function pc = construct_point_cloud(depth_ims, do_remove_plane, do_remove_pot, d
         elseif do_remove_pot
             [pc, pc_pot_plane] = remove_pot(pc, reference_vector, bounding_box(4));
         end
-        
-        figure;
-        pcshow(pc_pot_plane);
         
         pc = pcdownsample(pc, 'gridAverage', 2);
         pc_new = pcdenoise(pc, 'NumNeighbors', 50, 'Threshold', 0.01);
